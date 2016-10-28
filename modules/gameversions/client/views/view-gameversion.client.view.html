@@ -1,0 +1,27 @@
+<section>
+  <div class="page-header">
+    <h1 ng-bind="vm.gameversion.name"></h1>
+  </div>
+  <p ng-bind-html="vm.gameversion.description"> </p>
+  <div class="pull-right"
+       ng-show="vm.gameversion.isCurrentUserOwner">
+    <a class="btn btn-primary"
+       ui-sref="gameversions.edit({ gameversionId: vm.gameversion._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <small>
+    <em class="text-muted">
+      Posted on
+      <span ng-bind="vm.gameversion.created | date:'mediumDate'"></span>
+      by
+      <span ng-if="vm.gameversion.user"
+            ng-bind="vm.gameversion.user.displayName"></span>
+      <span ng-if="!vm.gameversion.user">Deleted User</span>
+    </em>
+  </small>
+  <p class="lead" ng-bind="vm.gameversion.content"></p>
+</section>

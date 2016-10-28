@@ -1,0 +1,26 @@
+<section>
+  <div class="page-header">
+    <h1 ng-bind="vm.language.name"></h1>
+  </div>
+  <div class="pull-right"
+       ng-show="vm.language.isCurrentUserOwner">
+    <a class="btn btn-primary"
+       ui-sref="languages.edit({ languageId: vm.language._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <small>
+    <em class="text-muted">
+      Posted on
+      <span ng-bind="vm.language.created | date:'mediumDate'"></span>
+      by
+      <span ng-if="vm.language.user"
+            ng-bind="vm.language.user.displayName"></span>
+      <span ng-if="!vm.language.user">Deleted User</span>
+    </em>
+  </small>
+  <p class="lead" ng-bind="vm.language.content"></p>
+</section>

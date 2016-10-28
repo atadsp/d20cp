@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Deities</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="deity in vm.deities"
+       ui-sref="deities.view({ deityId: deity._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="deity.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="deity.user" ng-bind="deity.user.displayName"></span>
+        <span ng-if="!deity.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="deity.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.deities.$resolved && !vm.deities.length">
+    No Deities yet, why don't you <a ui-sref="deities.create">create one</a>?
+  </div>
+</section>

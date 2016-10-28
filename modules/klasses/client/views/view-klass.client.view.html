@@ -1,0 +1,42 @@
+<section>
+  <div class="page-header">
+    <h1 ng-bind="vm.klass.name"></h1>
+    <p><b> Book: </b><span ng-bind="vm.klass.book"> </span></p>
+
+    <div ng-if="vm.klass.prestigeclass">
+
+    <h3> Requirments </h3>
+    <p ng-show="vm.klass.babrequirment != 0"><b> Base Attack Bonus Requirment: </b> <span ng-bind="vm.klass.babrequirment"> </span> </p>
+
+    <p ng-show="vm.klass.spellcastingrequirment != '' " ><b> Spellcasting Requirment: </b> <span ng-bind="vm.klass.spellcastingrequirment"> </span> </p> 
+
+    <p><b> Special Requirment: </b> <span ng-bind="vm.klass.specialrequirment"> </span> </p>
+    </div>
+
+    <p ng-bind="vm.klass.description"> </p>
+
+
+    <i ng-bind="vm.klass.gameversion"> </i>
+  </div>
+  <div class="pull-right"
+       ng-show="vm.klass.isCurrentUserOwner">
+    <a class="btn btn-primary"
+       ui-sref="klasses.edit({ klassId: vm.klass._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <small>
+    <em class="text-muted">
+      Posted on
+      <span ng-bind="vm.klass.created | date:'mediumDate'"></span>
+      by
+      <span ng-if="vm.klass.user"
+            ng-bind="vm.klass.user.displayName"></span>
+      <span ng-if="!vm.klass.user">Deleted User</span>
+    </em>
+  </small>
+  <p class="lead" ng-bind="vm.klass.content"></p>
+</section>

@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Game Versions</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="gameversion in vm.gameversions"
+       ui-sref="gameversions.view({ gameversionId: gameversion._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="gameversion.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="gameversion.user" ng-bind="gameversion.user.displayName"></span>
+        <span ng-if="!gameversion.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="gameversion.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.gameversions.$resolved && !vm.gameversions.length">
+    No Game Versions yet, why don't you <a ui-sref="gameversions.create">create one</a>?
+  </div>
+</section>

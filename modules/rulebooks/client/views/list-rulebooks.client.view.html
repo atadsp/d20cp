@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Rulebooks</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="rulebook in vm.rulebooks"
+       ui-sref="rulebooks.view({ rulebookId: rulebook._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="rulebook.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="rulebook.user" ng-bind="rulebook.user.displayName"></span>
+        <span ng-if="!rulebook.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="rulebook.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.rulebooks.$resolved && !vm.rulebooks.length">
+    No Rulebooks yet, why don't you <a ui-sref="rulebooks.create">create one</a>?
+  </div>
+</section>

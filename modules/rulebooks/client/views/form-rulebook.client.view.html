@@ -1,0 +1,45 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.rulebook._id ? 'Edit Rulebook' : 'New Rulebook'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.rulebookForm" class="form-horizontal" ng-submit="vm.save(vm.form.rulebookForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Name</label>
+          <input name="name" type="text" ng-model="vm.rulebook.name" id="name" class="form-control" placeholder="Name" required>
+          <div ng-messages="vm.form.rulebookForm.name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Rulebook name is required.</p>
+          </div>
+        </div>
+
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Tagline</label>
+          <input name="tagline" type="text" ng-model="vm.rulebook.tagline" id="tagline" class="form-control" placeholder="Authors" required>
+        </div>
+
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Authors</label>
+          <input name="authors" type="text" ng-model="vm.rulebook.authors" id="authors" class="form-control" placeholder="Authors" required>
+        </div>
+
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Description</label>
+          <textarea name="description" type="text" ng-model="vm.rulebook.description" id="description" class="form-control" placeholder="Description" required> </textarea>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Game Version</label>
+          <select name="gameversion" type="text" ng-options="gameversion.name as gameversion.name for gameversion in vm.gameversions" ng-model="vm.rulebook.gameversions" id="departments" class="form-control" placeholder="Version" > </select>
+        </div>
+
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.rulebook._id ? 'Update' : 'Create'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

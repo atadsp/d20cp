@@ -1,0 +1,62 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.klass._id ? 'Edit Class' : 'New Class'}}</h1>
+  </div>
+  <div class="col-md-12">
+
+    <form name="vm.form.klassForm" class="form-horizontal" ng-submit="vm.save(vm.form.klassForm.$valid)" novalidate>
+      <fieldset>
+      
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Name</label>
+          <input name="name" type="text" ng-model="vm.klass.name" id="name" class="form-control" placeholder="Name" required>
+          <div ng-messages="vm.form.klassForm.name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Class name is required.</p>
+          </div>
+        </div>
+
+        <div class="form-group" show-errors>
+          <label class="control-label" for="description">Description</label>
+          <textarea name="description" type="text" ng-model="vm.klass.description" id="description" class="form-control" placeholder="Description" > </textarea>
+        </div>
+
+        <div class="form-group" show-errors>
+          <label class="control-label">Prestige Class?</label> <br>
+          <div ng-init="vm.klass.prestigeclass">
+            <input type="radio" id="true" ng-value="true" ng-model="vm.klass.prestigeclass"> True<br>
+            <input type="radio" ng-value="false" ng-model="vm.klass.prestigeclass"> False<br>
+          </div>
+        </div>
+
+        <div ng-if="vm.klass.prestigeclass">
+        <label class="control-label" for="babrequirment">Base Attack Bonus Requirement</label>
+          <input name="babrequirment" type="number" ng-model="vm.klass.babrequirment" id="babrequirment" min="0" max="20" class="form-control" placeholder="Base Attack Bonus Requirement">
+
+        <label class="control-label" for="spellcastingrequirment">Spellcasting Requirement</label>
+          <input name="spellcastingrequirment" type="text" ng-model="vm.klass.spellcastingrequirment" id="spellcastingrequirment" class="form-control" placeholder="Spellcasting Requirement">
+
+        </div>
+
+        <div class="form-group" show-errors>
+          <label class="control-label">Rule Book</label>
+          <p ng-show="vm.klass._id"> Current Book - {{vm.klass.book}} </p>
+          <select name="book" ng-options="book.name as book.name for book in vm.rulebooks" ng-model="vm.klass.book" id="book" class="form-control" ng-change="change()" >
+            <option value="">--select an option--</option>
+          </select>
+        </div>
+
+        <div class="form-group" show-errors>
+          <input name="gameversion" type="hidden" disabled="true" ng ng-model="vm.klass.gameversion" id="gameversion" class="form-control" placeholder="Version"> </select>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.klass._id ? 'Update' : 'Create'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+
+      </fieldset>
+    </form>
+  </div>
+</section>
