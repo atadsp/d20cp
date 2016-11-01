@@ -29,7 +29,10 @@
         </div>
         <div class="form-group" show-errors>
           <label class="control-label" for="name">Game Version</label>
-          <select name="gameversion" type="text" ng-options="gameversion.name as gameversion.name for gameversion in vm.gameversions" ng-model="vm.rulebook.gameversions" id="departments" class="form-control" placeholder="Version" > </select>
+          <select name="gameversion" type="text" ng-options="gameversion.name as gameversion.name for gameversion in vm.gameversions" ng-model="vm.rulebook.gameversions" id="departments" class="form-control" placeholder="Version" ng-change="updateGameID()"> </select>
+        </div>
+        <div class="form-group" show-errors>
+          <input name="gameversionID" type="hidden" disabled="true" ng ng-model="vm.rulebook.gameversionID" id="gameversionID" class="form-control" placeholder="gameversionID"> </select>
         </div>
 
 

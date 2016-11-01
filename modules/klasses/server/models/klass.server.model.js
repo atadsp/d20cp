@@ -22,6 +22,11 @@ var KlassSchema = new Schema({
     required: 'Please select the book this class comes from',
     trim: true
   },
+  bookid:{
+    type:String,
+    default: '',
+    trim: true
+  },
   description: {
     type:String,
     default: '',
@@ -83,22 +88,33 @@ var KlassSchema = new Schema({
     type: Number,
     default: 0.34
   },
+  numlevels: {
+    type: Number,
+    default: 20
+  },
+  isspellcaster: {
+    type: Boolean,
+    default: false
+  },
+  progressesExistingCasting:{
+    type: Boolean,
+    default: false
+  },
+  hasZero:{
+  type: Boolean,
+  default: false
+  },
+  maxspelllevel: {
+    type: Number,
+    default: 0
+  },
   advancement: [
     {
       special: {
         type: String,
         default: '',
         trim: true
-      },
-      spellcasting: [
-          {
-            progression: {
-            type: String,
-            default: '',
-            trim: true
-          }
-        }
-      ]
+      }
     }
   ],
   classskills: [
@@ -129,6 +145,11 @@ var KlassSchema = new Schema({
     trim: true
   },
   gameversion: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  gameversionID:{
     type: String,
     default: '',
     trim: true

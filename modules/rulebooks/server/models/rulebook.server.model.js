@@ -36,6 +36,11 @@ var RulebookSchema = new Schema({
     default: '',
     trim: true
   },
+  gameversionID:{
+    type: String,
+    default: '',
+    trim:true
+  },
   created: {
     type: Date,
     default: Date.now

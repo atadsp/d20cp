@@ -50,6 +50,19 @@
       function errorCallback(res) {
         vm.error = res.data.message;
       }
+
     }
+
+      $scope.updateGameID = function(){
+      var book = vm.rulebook.gameversions;
+      var gameversions = vm.gameversions;
+      console.log(book);
+
+      for(var i = 0; i< gameversions.length; i++){
+        if(gameversions[i].name === book){
+          vm.rulebook.gameversionID = gameversions[i]._id;
+        }
+      }
+    };
   }
 }());

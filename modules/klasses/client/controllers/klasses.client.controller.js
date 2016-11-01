@@ -53,15 +53,23 @@
       }
     }
 
-    $scope.change = function(){
-      var book = vm.klass.book
-      var rules = vm.rulebooks
+    $scope.updateRulebookInfo = function(){
+      var book = vm.klass.book;
+      var rules = vm.rulebooks;
 
       for(var i = 0; i< rules.length; i++){
         if(rules[i].name === book){
           vm.klass.gameversion = rules[i].gameversions;
+          vm.klass.bookid = rules[i]._id;
+          vm.klass.gameversionID = rules[i].gameversionID;
         }
       }
-    }
+    };
+    $scope.level = function(numlevel){
+      return new Array(numlevel);
+    };
   }
+
+
 }());
+

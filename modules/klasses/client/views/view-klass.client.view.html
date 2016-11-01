@@ -1,7 +1,7 @@
 <section>
   <div class="page-header">
     <h1 ng-bind="vm.klass.name"></h1>
-    <p><b> Book: </b><span ng-bind="vm.klass.book"> </span></p>
+    <p><b> Book: </b><a href="./rulebooks/{{vm.klass.bookid}}"><span ng-bind="vm.klass.book"> </span> </a> </p>
 
     <div ng-if="vm.klass.prestigeclass">
 
@@ -10,13 +10,73 @@
 
     <p ng-show="vm.klass.spellcastingrequirment != '' " ><b> Spellcasting Requirment: </b> <span ng-bind="vm.klass.spellcastingrequirment"> </span> </p> 
 
-    <p><b> Special Requirment: </b> <span ng-bind="vm.klass.specialrequirment"> </span> </p>
+    <p ng-show="vm.klass.specialrequirment"><b> Special Requirment: </b> <span ng-bind-html="vm.klass.specialrequirment"> </span> </p>
     </div>
-
+    <h3> Class Features </h3>
+    <p><b> Hit Dice: </b> <span ng-bind="vm.klass.hitdice"> </span> </p>
+    <p><b> Skill Points per level: </b> <span ng-bind="vm.klass.skillpoints"> </span> </p>
     <p ng-bind="vm.klass.description"> </p>
 
+        <table class="table">
+          <tr>
+            <th>Level
+            </th>
+            <th>Base Attack Bonus
+            </th>
+            <th>Fort Save
+            </th>
+            <th>Ref Save
+            </th>
+            <th>Will Save
+            </th>
+            <th>Special
+            </th>
+            <th ng-if="vm.klass.maxspelllevel != 0">Spell
+            </th>
+          </tr>
+          <tr ng-repeat="i in level(vm.klass.numlevels) track by $index">
+            <td> {{$index + 1}}
+            </td>
+            <td>
+            <span ng-if="vm.klass.babprogression == 0.5">+{{vm.klass.babprogression * ($index + 1) - 0.5| number : 0 }} 
+            </span>
+            <span ng-if="vm.klass.babprogression == 0.75">+{{vm.klass.babprogression * ($index + 1) -0.5 | number : 0 }}
+            </span>
+            <span ng-if="vm.klass.babprogression == 1">+{{vm.klass.babprogression * ($index + 1) | number : 0 }}
+            </span>
+            <span ng-if="vm.klass.babprogression == 0">0
+            </span>
+            </td>
 
-    <i ng-bind="vm.klass.gameversion"> </i>
+            <td>
+            <div ng-if="vm.klass.fortprogression == 0.333334">{{vm.klass.fortprogression * ($index + 1) - 0.2 | number : 0 }}
+            </div>
+            <div ng-if="vm.klass.fortprogression == 0.5"> 
+            {{vm.klass.fortprogression * ($index + 1) + 1.5 | number : 0 }}
+            </div>
+            </td>
+            <td>
+            <div ng-if="vm.klass.refprogression == 0.333334">{{vm.klass.refprogression * ($index + 1) - 0.2 | number : 0 }}
+            </div>
+            <div ng-if="vm.klass.refprogression == 0.5"> 
+            {{vm.klass.refprogression * ($index + 1) + 1.5 | number : 0 }}
+            </div>
+            </td>
+            <td>
+            <div ng-if="vm.klass.willprogression == 0.333334">{{vm.klass.willprogression * ($index + 1) - 0.2 | number : 0 }}
+            </div>
+            <div ng-if="vm.klass.willprogression == 0.5"> 
+            {{vm.klass.willprogression * ($index + 1) + 1.5 | number : 0 }}
+            </td>
+            <td> {{vm.klass.advancement[$index].special}}
+            </td>
+          </tr>
+        </table>
+
+
+
+
+    <a href="/gameversions/{{vm.klass.gameversionID}}"><i ng-bind="vm.klass.gameversion"> </i>
   </div>
   <div class="pull-right"
        ng-show="vm.klass.isCurrentUserOwner">
