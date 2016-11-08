@@ -12,7 +12,4 @@
 
     vm.klasses = KlassesService.query();
   }
-    function change(){
-    	console.log('hello');
-    }
 }());

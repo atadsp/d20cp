@@ -43,6 +43,17 @@
         <label class="control-label" for="specialrequirment">Special Requirement</label>
           <input name="specialrequirment" type="text" ng-model="vm.klass.specialrequirment" id="specialrequirment" class="form-control" placeholder="Special Requirement">
 
+        <label>Feat Requirments</label>
+        <div ng-repeat="option in vm.options" ng-if="option._id != vm.feat._id">
+        <input type="checkbox" ng-model="option.checked" ng-click="togglePrereq(option)"> 
+          <span> {{option.name}} </span><br>
+        </div>
+
+        <label ng-if="vm.klass.featrequirment.length > 0">Current Prerequisite Feats </label>
+        <div ng-repeat="current in vm.klass.featrequirment"> 
+        <button ng-click="removePrereq(vm.klass.featrequirment[$index].id)" type="button" ng-model="vm.feat.featprereq">Remove - {{current.name}}</button>
+        </div>
+
         </div>
 
         <div class="form-group">
@@ -132,6 +143,7 @@
         <label class="control-label" for="numlevels">Max Levels</label>
           <input name="numlevels" type="number" ng-model="vm.klass.numlevels" id="numlevels" min="1" max="20" class="form-control" placeholder="Base Attack Bonus Requirement">
 
+        <div class="form-group">
         <h3> Class Table </h3>
         
         <table class="table">
@@ -150,24 +162,26 @@
             </th>
             <th ng-if="vm.klass.isspellcaster">Spell Advancement
             <div ng-if="vm.klass.progressesExistingCasting==false">
-              <span ng-if="vm.klass.hasZero==true"> 0 |</span> 
-              <span ng-if="vm.klass.maxspelllevel >= 1">1st</span> 
-              <span ng-if="vm.klass.maxspelllevel >= 2">|2nd</span> 
-              <span ng-if="vm.klass.maxspelllevel >= 3">|3rd</span> 
-              <span ng-if="vm.klass.maxspelllevel >=4">|4th</span> 
-              <span ng-if="vm.klass.maxspelllevel >=5">|5th</span> 
-              <span ng-if="vm.klass.maxspelllevel >=6">|6th</span> 
-              <span ng-if="vm.klass.maxspelllevel >=7">|7th</span> 
-              <span ng-if="vm.klass.maxspelllevel >=8">|8th</span> 
-              <span ng-if="vm.klass.maxspelllevel >=9">|9th</span> 
+              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.hasZero==true"> 0th </span> 
+              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >= 1">1st</span> 
+              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >= 2">2nd</span> 
+              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >= 3">3rd</span> 
+              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >=4">4th</span> 
+              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >=5">5th</span> 
+              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >=6">6th</span> 
+              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >=7">7th</span> 
+              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >=8">8th</span> 
+              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >=9">9th</span> 
             </div>
-            </th>             
+            </th>        
             <div>
           </tr>
-          <tr ng-repeat="i in level(vm.klass.numlevels) track by $index">
-            <td> {{$index + 1}}
+
+          <tr ng-repeat="i in level(vm.klass.numlevels) track by $index"> 
+            <td> {{$index + 1}} 
             </td>
-            <td>
+
+            <td> 
             <span ng-if="vm.klass.babprogression == 0.5">+{{vm.klass.babprogression * ($index + 1) - 0.5| number : 0 }} 
             </span>
             <span ng-if="vm.klass.babprogression == 0.75">+{{vm.klass.babprogression * ($index + 1) -0.5 | number : 0 }}
@@ -176,8 +190,8 @@
             </span>
             <span ng-if="vm.klass.babprogression == 0">0
             </span>
-
             </td>
+
             <td>
             <div ng-if="vm.klass.fortprogression == 0.333334">{{vm.klass.fortprogression * ($index + 1) - 0.2 | number : 0 }}
             </div>
@@ -185,6 +199,7 @@
             {{vm.klass.fortprogression * ($index + 1) + 1.5 | number : 0 }}
             </div>
             </td>
+
             <td>
             <div ng-if="vm.klass.refprogression == 0.333334">{{vm.klass.refprogression * ($index + 1) - 0.2 | number : 0 }}
             </div>
@@ -192,6 +207,7 @@
             {{vm.klass.refprogression * ($index + 1) + 1.5 | number : 0 }}
             </div>
             </td>
+            
             <td>
             <div ng-if="vm.klass.willprogression == 0.333334">{{vm.klass.willprogression * ($index + 1) - 0.2 | number : 0 }}
             </div>
@@ -200,14 +216,52 @@
             </td>
 
             <td> 
-              <input name="special" type="text" ng-model="vm.klass.advancement[$index].special" id="special" class="form-control" placeholder="Special Abilties">
-            </td>
-            <td>
-
+              <input type="text" ng-model="vm.klass.advancement[$index].special" id="special{{$index}}" class="form-control" placeholder="Special Abilties"> 
             </td>
 
+
+            <td ng-if="vm.klass.isspellcaster==true">
+            <div ng-if="vm.klass.progressesExistingCasting==false"> 
+            <span ng-if="vm.klass.hasZero==true" style="float:left; width:35px; margin-right: 10px;"> 
+              <input name="zero{{$index}}" type="text" ng-model="vm.klass.advancement[$index].zerolevel" id="zero{{$index}}" class="form-control" ng-init="0" placeholder="Special Abilties">
+            </span>
+            <span ng-if="vm.klass.maxspelllevel >= 1" style="float:left; width:35px; margin-right: 10px;"> 
+              <input name="first{{$index}}" type="text" ng-model="vm.klass.advancement[$index].firstlevel" id="first{{$index}}" ng-init="0" class="form-control" placeholder="Special Abilties">
+            </span>
+            <span ng-if="vm.klass.maxspelllevel >= 2" style="float:left; width:35px; margin-right: 10px;"> 
+              <input name="second{{$index}}" type="text" ng-model="vm.klass.advancement[$index].secondlevel" id="second{{$index}}" ng-init="0" class="form-control" placeholder="Special Abilties">
+            </span>
+            <span ng-if="vm.klass.maxspelllevel >= 3" style="float:left; width:35px; margin-right: 10px;"> 
+              <input name="third{{$index}}" type="text" ng-model="vm.klass.advancement[$index].thirdlevel" id="third{{$index}}" ng-init="0" class="form-control" placeholder="Special Abilties">
+            </span>
+            <span ng-if="vm.klass.maxspelllevel >= 4" style="float:left; width:35px; margin-right: 10px;"> 
+              <input name="fourth{{$index}}" type="text" ng-model="vm.klass.advancement[$index].fourthlevel" id="fourth{{$index}}" ng-init="0" class="form-control" placeholder="Special Abilties">
+            </span>
+            <span ng-if="vm.klass.maxspelllevel >= 5" style="float:left; width:35px; margin-right: 10px;"> 
+              <input name="fifth{{$index}}" type="text" ng-model="vm.klass.advancement[$index].fifthlevel" id="fifth{{$index}}" ng-init="0" class="form-control" placeholder="Special Abilties">
+            </span>
+            <span ng-if="vm.klass.maxspelllevel >= 6" style="float:left; width:35px; margin-right: 10px;"> 
+              <input name="sixth{{$index}}" type="text" ng-model="vm.klass.advancement[$index].sixthlevel" id="sixth{{$index}}" ng-init="0" class="form-control" placeholder="Special Abilties">
+            </span>
+            <span ng-if="vm.klass.maxspelllevel >= 7" style="float:left; width:35px; margin-right: 10px;"> 
+              <input name="seventh{{$index}}" type="text" ng-model="vm.klass.advancement[$index].seventhlevel" id="seventh{{$index}}" ng-init="0" class="form-control" placeholder="Special Abilties">
+            </span>
+            <span ng-if="vm.klass.maxspelllevel >= 8" style="float:left; width:35px; margin-right: 10px;"> 
+              <input name="eigth{{$index}}" type="text" ng-model="vm.klass.advancement[$index].eigthlevel" id="eigth{{$index}}" ng-init="0" class="form-control" placeholder="Special Abilties">
+            </span>
+            <span ng-if="vm.klass.maxspelllevel >= 9" style="float:left; width:35px; margin-right: 10px;"> 
+              <input name="ninth{{$index}}" type="text" ng-model="vm.klass.advancement[$index].ninthlevel" id="ninth{{$index}}" ng-init="0" class="form-control" placeholder="Special Abilties">
+            </span>
+            </div>
+
+            <span ng-if="vm.klass.progressesExistingCasting==true"> 
+              <input name="progresses" type="text" ng-model="vm.klass.advancement[$index].progressesExisting" id="progresses{{$index}}" ng-init="0" class="form-control" placeholder="Spell Advancement">
+            </span>
+            </td>
           </tr>
+
         </table>
+
 
 
 

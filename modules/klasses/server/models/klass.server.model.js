@@ -41,13 +41,7 @@ var KlassSchema = new Schema({
     default: 0
   },
   featrequirment: [
-    {
-      feat: {
-      type:String,
-      default: '',
-      trim: true
-    }
-    }],
+    ],
   spellcastingrequirment: {
     type: String,
     default: '',
@@ -114,30 +108,55 @@ var KlassSchema = new Schema({
         type: String,
         default: '',
         trim: true
+      },
+      zerolevel: {
+        type: Number,
+        default: 0
+      },
+      firstlevel: {
+        type: Number,
+        default: 0
+      },
+      secondlevel: {
+        type: Number,
+        default: 0
+      },
+      thirdlevel: {
+        type: Number,
+        default: 0
+      },
+      fourthlevel: {
+        type: Number,
+        default: 0
+      },
+      fifthlevel: {
+        type: Number,
+        default: 0
+      },
+      sixthlevel: {
+        type: Number,
+        default: 0
+      },
+      seventhlevel: {
+        type: Number,
+        default: 0
+      },
+      eigthlevel: {
+        type: Number,
+        default: 0
+      },
+      ninthlevel: {
+        type: Number,
+        default: 0
+      },
+      progressesExisting: {
+        type: String,
+        default: '',
+        trim: true
       }
     }
   ],
   classskills: [
-  {
-    name:{
-      type: String,
-      default: '',
-      trim: true
-    },
-    keyability: {
-      type: String,
-      default: '',
-      trim: true
-    },
-    trainedonly: {
-      type: Boolean,
-      default: false
-    },
-    armorcheckpen: {
-      type: Boolean,
-      default: false
-    }
-  }
   ],
   spellslink: {
     type: String,

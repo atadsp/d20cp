@@ -11,11 +11,19 @@
     <p ng-show="vm.klass.spellcastingrequirment != '' " ><b> Spellcasting Requirment: </b> <span ng-bind="vm.klass.spellcastingrequirment"> </span> </p> 
 
     <p ng-show="vm.klass.specialrequirment"><b> Special Requirment: </b> <span ng-bind-html="vm.klass.specialrequirment"> </span> </p>
+
+    <label ng-if="vm.klass.featrequirment.length > 0">Feat Requirments: </label><span ng-repeat="feat in vm.klass.featrequirment"><span ng-if="vm.klass.featrequirment.length = $index">, </span>{{feat.name}}</span>
+
     </div>
-    <h3> Class Features </h3>
+
+    <h3>Class Information</h3>
     <p><b> Hit Dice: </b> <span ng-bind="vm.klass.hitdice"> </span> </p>
     <p><b> Skill Points per level: </b> <span ng-bind="vm.klass.skillpoints"> </span> </p>
     <p ng-bind="vm.klass.description"> </p>
+    <h3> Class Features </h3>
+    <div ng-bind-html="vm.klass.classfeatures"> 
+
+    </div>
 
         <table class="table">
           <tr>
@@ -31,7 +39,19 @@
             </th>
             <th>Special
             </th>
-            <th ng-if="vm.klass.maxspelllevel != 0">Spell
+            <th ng-if="vm.klass.isspellcaster">Spells Per Day
+            <div ng-if="vm.klass.progressesExistingCasting==false">
+              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.hasZero==true"> 0th </span> 
+              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >= 1">1st</span> 
+              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >= 2">2nd</span> 
+              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >= 3">3rd</span> 
+              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >=4">4th</span> 
+              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >=5">5th</span> 
+              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >=6">6th</span> 
+              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >=7">7th</span> 
+              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >=8">8th</span> 
+              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >=9">9th</span> 
+            </div>
             </th>
           </tr>
           <tr ng-repeat="i in level(vm.klass.numlevels) track by $index">
@@ -69,6 +89,44 @@
             {{vm.klass.willprogression * ($index + 1) + 1.5 | number : 0 }}
             </td>
             <td> {{vm.klass.advancement[$index].special}}
+            </td>
+
+            <td ng-if="vm.klass.isspellcaster==true">
+            <div ng-if="vm.klass.progressesExistingCasting==false"> 
+            <span ng-if="vm.klass.hasZero==true" style="float:left; width:35px; margin-right: 10px;"> 
+              {{vm.klass.advancement[$index].zerolevel}}
+            </span>
+            <span ng-if="vm.klass.maxspelllevel >= 1" style="float:left; width:35px; margin-right: 10px;"> 
+              {{vm.klass.advancement[$index].firstlevel}}
+            </span>
+            <span ng-if="vm.klass.maxspelllevel >= 2" style="float:left; width:35px; margin-right: 10px;"> 
+              {{vm.klass.advancement[$index].secondlevel}}
+            </span>
+            <span ng-if="vm.klass.maxspelllevel >= 3" style="float:left; width:35px; margin-right: 10px;"> 
+              {{vm.klass.advancement[$index].thirdlevel}}
+            </span>
+            <span ng-if="vm.klass.maxspelllevel >= 4" style="float:left; width:35px; margin-right: 10px;"> 
+              {{vm.klass.advancement[$index].fourthlevel}}
+            </span>
+            <span ng-if="vm.klass.maxspelllevel >= 5" style="float:left; width:35px; margin-right: 10px;"> 
+              {{vm.klass.advancement[$index].fifthlevel}}
+            </span>
+            <span ng-if="vm.klass.maxspelllevel >= 6" style="float:left; width:35px; margin-right: 10px;"> 
+              {{vm.klass.advancement[$index].sixthlevel}}
+            </span>
+            <span ng-if="vm.klass.maxspelllevel >= 7" style="float:left; width:35px; margin-right: 10px;"> 
+              {{vm.klass.advancement[$index].seventhlevel}}
+            </span>
+            <span ng-if="vm.klass.maxspelllevel >= 8" style="float:left; width:35px; margin-right: 10px;"> 
+              {{vm.klass.advancement[$index].eigthlevel}}
+            </span>
+            <span ng-if="vm.klass.maxspelllevel >= 9" style="float:left; width:35px; margin-right: 10px;"> 
+              {{vm.klass.advancement[$index].ninthlevel}}
+            </span>
+            </div>
+            <span ng-if="vm.klass.progressesExistingCasting==true"> 
+              {{vm.klass.advancement[$index].progressesExisting}}
+            </span>
             </td>
           </tr>
         </table>

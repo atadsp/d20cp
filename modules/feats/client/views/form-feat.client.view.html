@@ -12,6 +12,60 @@
             <p class="help-block error-text" ng-message="required">Feat name is required.</p>
           </div>
         </div>
+
+        <div class="form-group" show-errors>
+          <label class="control-label" for="category">Category</label>
+          <select name="featcategories" ng-options="featcategories.name as featcategories.name for featcategories in vm.featcategories" ng-model="vm.feat.category" id="category" class="form-control">
+            <option value="">--select an option--</option>
+          </select>
+        </div>
+
+        <div class="form-group" show-errors>
+          <label class="control-label">Fighter Bonus Feat?</label> <br>
+          <div ng-init="vm.feat.isFighterBonusFeat">
+            <input type="radio" id="true" ng-value="true" ng-model="vm.feat.isFighterBonusFeat"> True<br>
+            <input type="radio" ng-value="false" ng-model="vm.feat.isFighterBonusFeat"> False<br>
+          </div>
+        </div>
+
+        <div class="form-group" show-errors>
+          <label class="control-label" for="prerequisite">Prerequisite</label>
+          <input name="prerequisite" type="text" ng-model="vm.feat.prerequisite" id="prerequisite" class="form-control" placeholder="Prerequisites" >
+        </div>
+
+        <div ng-repeat="option in vm.options" ng-if="option._id != vm.feat._id">
+        <input type="checkbox" ng-model="option.checked" ng-click="togglePrereq(option)"> 
+          <span> {{option.name}} </span><br>
+        </div>
+
+        <label ng-if="vm.feat.featprereq.length > 0">Current Prerequisite Feats </label>
+        <div ng-repeat="current in vm.feat.featprereq"> 
+        <button ng-click="removePrereq(vm.feat.featprereq[$index].id)" type="button" ng-model="vm.feat.featprereq">Remove - {{current.name}}</button>
+        </div>
+
+        <div class="form-group" show-errors>
+          <label class="control-label" for="benefit">Benefit</label>
+          <textarea name="benefit" type="text" ng-model="vm.feat.benefit" id="benefit" class="form-control" placeholder="Prerequisites" > </textarea>
+        </div>
+
+        <div class="form-group" show-errors>
+          <label class="control-label" for="special">Special</label>
+          <textarea name="special" type="text" ng-model="vm.feat.special" id="special" class="form-control" placeholder="Prerequisites" > </textarea>
+        </div>
+
+        <div class="form-group" show-errors>
+          <label class="control-label">Rule Book</label>
+          <p ng-show="vm.feat._id"> Current Book - {{vm.feat.book}} </p>
+          <select name="book" ng-options="book.name as book.name for book in vm.rulebooks" ng-model="vm.feat.book" id="book" class="form-control" ng-change="updateRulebookInfo()" >
+            <option value="">--select an option--</option>
+          </select>
+
+          <input name="bookid" type="hidden" disabled="true" ng ng-model="vm.feat.bookid" id="bookid" class="form-control" placeholder="bookid"> </select>
+          <input name="gameversion" type="hidden" disabled="true" ng ng-model="vm.feat.gameversion" id="gameversion" class="form-control" placeholder="Version"> </select>
+          <input name="gameversionID" type="hidden" disabled="true" ng ng-model="vm.feat.gameversionID" id="gameversionID" class="form-control" placeholder="Version"> </select>
+
+        </div>
+
         <div class="form-group">
           <button type="submit" class="btn btn-default">{{vm.feat._id ? 'Update' : 'Create'}}</button>
         </div>

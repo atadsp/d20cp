@@ -5,113 +5,113 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  Klass = mongoose.model('Klass'),
+  Featcategory = mongoose.model('Featcategory'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
 /**
- * Create a Klass
+ * Create a Featcategory
  */
 exports.create = function(req, res) {
-  var klass = new Klass(req.body);
-  klass.user = req.user;
+  var featcategory = new Featcategory(req.body);
+  featcategory.user = req.user;
 
-  klass.save(function(err) {
+  featcategory.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(klass);
+      res.jsonp(featcategory);
     }
   });
 };
 
 /**
- * Show the current Klass
+ * Show the current Featcategory
  */
 exports.read = function(req, res) {
   // convert mongoose document to JSON
-  var klass = req.klass ? req.klass.toJSON() : {};
+  var featcategory = req.featcategory ? req.featcategory.toJSON() : {};
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  klass.isCurrentUserOwner = req.user && klass.user && klass.user._id.toString() === req.user._id.toString();
+  featcategory.isCurrentUserOwner = req.user && featcategory.user && featcategory.user._id.toString() === req.user._id.toString();
 
-  res.jsonp(klass);
+  res.jsonp(featcategory);
 };
 
 /**
- * Update a Klass
+ * Update a Featcategory
  */
 exports.update = function(req, res) {
-  var klass = req.klass;
+  var featcategory = req.featcategory;
 
-  klass = _.extend(klass, req.body);
+  featcategory = _.extend(featcategory, req.body);
 
-  klass.save(function(err) {
+  featcategory.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(klass);
+      res.jsonp(featcategory);
     }
   });
 };
 
 /**
- * Delete an Klass
+ * Delete an Featcategory
  */
 exports.delete = function(req, res) {
-  var klass = req.klass;
+  var featcategory = req.featcategory;
 
-  klass.remove(function(err) {
+  featcategory.remove(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(klass);
+      res.jsonp(featcategory);
     }
   });
 };
 
 /**
- * List of Klasses
+ * List of Featcategories
  */
 exports.list = function(req, res) {
-  Klass.find().sort('-created').populate('user', 'displayName').exec(function(err, klasses) {
+  Featcategory.find().sort('-created').populate('user', 'displayName').exec(function(err, featcategories) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(klasses);
+      res.jsonp(featcategories);
     }
   });
 };
 
 /**
- * Klass middleware
+ * Featcategory middleware
  */
-exports.klassByID = function(req, res, next, id) {
+exports.featcategoryByID = function(req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'Class is invalid'
+      message: 'Featcategory is invalid'
     });
   }
 
-  Klass.findById(id).populate('user', 'displayName').exec(function (err, klass) {
+  Featcategory.findById(id).populate('user', 'displayName').exec(function (err, featcategory) {
     if (err) {
       return next(err);
-    } else if (!klass) {
+    } else if (!featcategory) {
       return res.status(404).send({
-        message: 'No Class with that identifier has been found'
+        message: 'No Featcategory with that identifier has been found'
       });
     }
-    req.klass = klass;
+    req.featcategory = featcategory;
     next();
   });
 };
