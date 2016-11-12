@@ -1,6 +1,44 @@
 <section>
   <div class="page-header">
-    <h1 ng-bind="vm.skill.name"></h1>
+    <span> <b style="font-size: xx-large;" ng-bind="vm.skill.name"> </b> 
+    (<span style="font-size: large;" ng-bind="vm.skill.keyAbility"> </span><span style="font-size: large;" ng-show="vm.skill.trainedOnly">; Trained Only</span><span style="font-size: large;" ng-show="vm.skill.armorCheckPen">; Armor Check Penalty</span>
+     ) 
+    </span>
+
+    <p><b> Book: </b><a href="./rulebooks/{{vm.skill.bookid}}"><span ng-bind="vm.skill.book"> </span> </a> </p>
+
+    <br>
+    <div ng-if="vm.skill.description != ''">
+      <label>Description</label>
+      <p ng-bind="vm.skill.description"> </p>
+    </div>
+
+    <div ng-if="vm.skill.check != ''">
+      <label>Check</label>
+      <p ng-bind="vm.skill.check"></p>
+    </div>
+
+    <div ng-if="vm.skill.tryAgain != ''">
+      <label>Try Again</label>
+      <p ng-bind="vm.skill.tryAgain"> </p>
+    </div>
+
+    <div ng-if="vm.skill.description != ''">
+      <label>Special</label>
+      <p ng-bind="vm.skill.description"> </p>
+    </div>
+
+    <div ng-if="vm.skill.synergy !=''">
+      <label>Synergy</label>
+      <p ng-bind="vm.skill.synergy"> </p>
+    </div>
+
+    <div ng-if="vm.skill.untrained != ''">
+      <label>Untrained</label>
+      <p ng-bind="vm.skill.untrained"> </p>
+    </div>
+
+    <a href="/gameversions/{{vm.skill.gameversionID}}"><i ng-bind="vm.skill.gameversion"> </i>
   </div>
   <div class="pull-right"
        ng-show="vm.skill.isCurrentUserOwner">

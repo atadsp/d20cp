@@ -6,9 +6,9 @@
     .module('klasses')
     .controller('KlassesController', KlassesController);
 
-  KlassesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'RulebooksService', 'FeatsService', 'GameversionsService', 'klassResolve'];
+  KlassesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'RulebooksService', 'FeatsService', 'GameversionsService', 'klassResolve', 'SkillsService'];
 
-  function KlassesController ($scope, $state, $window, Authentication, RulebooksService, FeatsService, GameversionsService, klass) {
+  function KlassesController ($scope, $state, $window, Authentication, RulebooksService, FeatsService, GameversionsService, klass, SkillsService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -21,6 +21,7 @@
     vm.options = FeatsService.query();
     vm.rulebooks = RulebooksService.query();
     vm.gameversions = GameversionsService.query();
+    vm.skills = SkillsService.query();
 
     // Remove existing Klass
     function remove() {
@@ -90,7 +91,6 @@
           console.log(prereq.id)
           if(vm.klass.featrequirment[i].id === prereq.id){
             num++
-            console.log(num)
           }
 
         }
@@ -108,7 +108,6 @@
       }
     }
     $scope.removePrereq = function(option){
-      console.log(option);
       var i = 0;
       for(i; i < vm.klass.featrequirment.length; i++){
           if(vm.klass.featrequirment[i].id === option){
@@ -116,6 +115,39 @@
           }
         }
       }
+      $scope.toggleSkills = function(skill){
+        var i = 0;
+        var num = 0;
+        var trainedSkill = {
+          id: skill._id,
+          name: skill.name,
+          ability: skill.keyAbility
+        }
+        if(skill.checked === true){
+          for(i; i < vm.klass.classskills.length; i++){
+            if(vm.klass.classskills[i].id === trainedSkill.id){
+              num++
+            }
+          }
+          if(num === 0){
+            vm.klass.classskills.push(trainedSkill);
+          }
+        } else if(skill.checked === false){
+        for(i; i < vm.klass.classskills.length; i++){
+          if(vm.klass.classskills[i].id === trainedSkill.id){
+            vm.klass.classskills.splice(vm.klass.classskills[i])
+          }
+        }
+      }
+      }
+    $scope.removeSkill = function(skill){
+      var i = 0;
+      for(i; i < vm.klass.classskills.length; i++){
+          if(vm.klass.classskills[i].id === skill){
+            vm.klass.classskills.splice(vm.klass.classskills[i])
+          }
+        }
+    }
   }
 
 

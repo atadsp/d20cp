@@ -12,6 +12,89 @@
             <p class="help-block error-text" ng-message="required">Skill name is required.</p>
           </div>
         </div>
+
+        <div class="form-group">
+          <label class="control-label" for="Description">Description</label>
+          <textarea name="description" type="text" ng-model="vm.skill.description" id="description" class="form-control" placeholder="Description"> </textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="check">Check</label>
+          <textarea name="check" type="text" ng-model="vm.skill.check" id="check" class="form-control" placeholder="Check"> </textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="action">Action</label>
+          <textarea name="action" type="text" ng-model="vm.skill.action" id="action" class="form-control" placeholder="Action"> </textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="tryAgain">Try Again</label>
+          <textarea name="tryAgain" type="text" ng-model="vm.skill.tryAgain" id="tryAgain" class="form-control" placeholder="Try Again"> </textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="special">Special</label>
+          <textarea name="special" type="text" ng-model="vm.skill.special" id="special" class="form-control" placeholder="Special"> </textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="synergy">Synergy</label>
+          <textarea name="synergy" type="text" ng-model="vm.skill.synergy" id="synergy" class="form-control" placeholder="Synergy"> </textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="untrained">Untrained</label>
+          <textarea name="untrained" type="text" ng-model="vm.skill.untrained" id="untrained" class="form-control" placeholder="Untrained"> </textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">Key Ability</label> <br>
+          <div ng-init="vm.skill.keyAbility">
+            <input type="radio" value="Str" ng-model="vm.skill.keyAbility"> Strength<br>
+            <input type="radio" value="Dex" ng-model="vm.skill.keyAbility"> Dexterity<br>
+            <input type="radio" value="Con" ng-model="vm.skill.keyAbility"> Consitution<br>
+            <input type="radio" value="Int" ng-model="vm.skill.keyAbility"> Intelligence<br>
+            <input type="radio" value="Wis" ng-model="vm.skill.keyAbility"> Wisdom<br>
+            <input type="radio" value="Cha" ng-model="vm.skill.keyAbility"> Charisma<br>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">Trained Only</label> <br>
+          <div ng-init="vm.skill.trainedOnly">
+            <input type="radio" ng-value="true" ng-model="vm.skill.trainedOnly"> True<br>
+            <input type="radio" ng-value="false" ng-model="vm.skill.trainedOnly"> False <br>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">Armor Check Penalty</label> <br>
+          <div ng-init="vm.skill.armorCheckPen">
+            <input type="radio" ng-value="true" ng-model="vm.skill.armorCheckPen"> True<br>
+            <input type="radio" ng-value="false" ng-model="vm.skill.armorCheckPen"> False <br>
+          </div>
+        </div>
+
+        <div class="form-group" show-errors>
+          <label class="control-label">Rule Book</label>
+          <p ng-show="vm.skill._id"> Current Book - {{vm.skill.book}} </p>
+          <select name="book" ng-options="book.name as book.name for book in vm.rulebooks" ng-model="vm.skill.book" id="book" class="form-control" ng-change="updateRulebookInfo()" >
+            <option value="">--select an option--</option>
+          </select>
+        </div>
+        <div class="form-group" show-errors>
+          <input name="bookid" type="hidden" disabled="true" ng ng-model="vm.skill.bookid" id="bookid" class="form-control" placeholder="bookid"> </select>
+        </div>
+
+        <div class="form-group" show-errors>
+          <input name="gameversion" type="hidden" disabled="true" ng ng-model="vm.skill.gameversion" id="gameversion" class="form-control" placeholder="Version"> </select>
+        </div>
+
+        <div class="form-group" show-errors>
+          <input name="gameversionID" type="hidden" disabled="true" ng ng-model="vm.skill.gameversionID" id="gameversionID" class="form-control" placeholder="Version"> </select>
+        </div>
+
         <div class="form-group">
           <button type="submit" class="btn btn-default">{{vm.skill._id ? 'Update' : 'Create'}}</button>
         </div>

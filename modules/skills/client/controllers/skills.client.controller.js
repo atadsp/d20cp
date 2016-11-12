@@ -6,9 +6,9 @@
     .module('skills')
     .controller('SkillsController', SkillsController);
 
-  SkillsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'skillResolve'];
+  SkillsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'skillResolve', 'RulebooksService','GameversionsService'];
 
-  function SkillsController ($scope, $state, $window, Authentication, skill) {
+  function SkillsController ($scope, $state, $window, Authentication, skill, RulebooksService, GameversionsService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -17,6 +17,9 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+
+    vm.rulebooks = RulebooksService.query();
+    vm.gameversions = GameversionsService.query();
 
     // Remove existing Skill
     function remove() {
@@ -49,5 +52,17 @@
         vm.error = res.data.message;
       }
     }
+    $scope.updateRulebookInfo = function(){
+      var book = vm.skill.book;
+      var rules = vm.rulebooks;
+
+      for(var i = 0; i< rules.length; i++){
+        if(rules[i].name === book){
+          vm.skill.gameversion = rules[i].gameversions;
+          vm.skill.bookid = rules[i]._id;
+          vm.skill.gameversionID = rules[i].gameversionID;
+        }
+      }
+    };
   }
 }());

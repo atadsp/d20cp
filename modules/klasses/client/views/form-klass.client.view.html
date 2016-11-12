@@ -77,6 +77,17 @@
           </div>
         </div>
 
+        <label>Class Skills</label>
+        <div ng-repeat="skill in vm.skills">
+        <input type="checkbox" ng-model="skill.checked" ng-click="toggleSkills(skill)"> 
+          <span> {{skill.name}} </span><br>
+        </div>
+
+        <label ng-if="vm.klass.classskills.length > 0">Current Class Skills </label>
+        <div ng-repeat="skill in vm.klass.classskills"> 
+        <button ng-click="removeSkill(vm.klass.classskills[$index].id)" type="button" ng-model="vm.feat.featprereq">Remove - {{skill.name}}</button>
+        </div>
+
         <div class="form-group">
           <label class="control-label">Base Attack Bonus Progression</label> <br>
           <div ng-init="vm.klass.babprogression">
