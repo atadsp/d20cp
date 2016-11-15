@@ -19,7 +19,7 @@
     Menus.addSubMenuItem('topbar', 'admin', {
       title: 'Create Article',
       state: 'news.create',
-      roles: ['user']
+      roles: ['admin']
     });
   }
 }());

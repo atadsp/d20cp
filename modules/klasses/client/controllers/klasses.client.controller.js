@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   // Klasses controller
@@ -8,7 +8,7 @@
 
   KlassesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'RulebooksService', 'FeatsService', 'GameversionsService', 'klassResolve', 'SkillsService'];
 
-  function KlassesController ($scope, $state, $window, Authentication, RulebooksService, FeatsService, GameversionsService, klass, SkillsService) {
+  function KlassesController($scope, $state, $window, Authentication, RulebooksService, FeatsService, GameversionsService, klass, SkillsService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -40,8 +40,8 @@
       // TODO: move create/update logic to service
       if (vm.klass._id) {
         var i = 0;
-        for(i; i < vm.klass.numlevels; i++){
-          if(vm.klass.advancement[i] === undefined){
+        for (i; i < vm.klass.numlevels; i++) {
+          if (vm.klass.advancement[i] === undefined) {
             vm.klass.advancement[i] = {};
           }
         }
@@ -61,95 +61,91 @@
       }
     }
 
-    $scope.updateRulebookInfo = function(){
+    $scope.updateRulebookInfo = function() {
       var book = vm.klass.book;
       var rules = vm.rulebooks;
 
-      for(var i = 0; i< rules.length; i++){
-        if(rules[i].name === book){
+      for (var i = 0; i < rules.length; i++) {
+        if (rules[i].name === book) {
           vm.klass.gameversion = rules[i].gameversions;
           vm.klass.bookid = rules[i]._id;
           vm.klass.gameversionID = rules[i].gameversionID;
         }
       }
     };
-    $scope.level = function(numlevel){
+    $scope.level = function(numlevel) {
       return new Array(numlevel);
     };
 
-    $scope.togglePrereq = function(option){
+    $scope.togglePrereq = function(option) {
       var i = 0;
       var prereq = {
         id: option._id,
         name: option.name
-          
-      }
+
+      };
       var num = 0;
-      if(option.checked === true){
-        for(i; i < vm.klass.featrequirment.length; i++){
-          console.log(vm.klass.featrequirment[i].id);
-          console.log(prereq.id)
-          if(vm.klass.featrequirment[i].id === prereq.id){
-            num++
+      if (option.checked === true) {
+        for (i; i < vm.klass.featrequirment.length; i++) {
+          if (vm.klass.featrequirment[i].id === prereq.id) {
+            num++;
           }
 
         }
-        console.log(num)
-        if(num === 0){
-          vm.klass.featrequirment.push(prereq)
+        if (num === 0) {
+          vm.klass.featrequirment.push(prereq);
         }
 
-      } else if(option.checked === false){
-        for(i; i < vm.klass.featrequirment.length; i++){
-          if(vm.klass.featrequirment[i].id === prereq.id){
-            vm.klass.featrequirment.splice(m.klass.featrequirment[i])
+      } else if (option.checked === false) {
+        for (i; i < vm.klass.featrequirment.length; i++) {
+          if (vm.klass.featrequirment[i].id === prereq.id) {
+            vm.klass.featrequirment.splice(vm.klass.featrequirment[i], 1);
           }
         }
       }
-    }
-    $scope.removePrereq = function(option){
+    };
+    $scope.removePrereq = function(option) {
       var i = 0;
-      for(i; i < vm.klass.featrequirment.length; i++){
-          if(vm.klass.featrequirment[i].id === option){
-            vm.klass.featrequirment.splice(vm.klass.featrequirment[i])
-          }
+      for (i; i < vm.klass.featrequirment.length; i++) {
+        if (vm.klass.featrequirment[i].id === option) {
+          vm.klass.featrequirment.splice(vm.klass.featrequirment[i], 1);
         }
       }
-      $scope.toggleSkills = function(skill){
-        var i = 0;
-        var num = 0;
-        var trainedSkill = {
-          id: skill._id,
-          name: skill.name,
-          ability: skill.keyAbility
-        }
-        if(skill.checked === true){
-          for(i; i < vm.klass.classskills.length; i++){
-            if(vm.klass.classskills[i].id === trainedSkill.id){
-              num++
-            }
-          }
-          if(num === 0){
-            vm.klass.classskills.push(trainedSkill);
-          }
-        } else if(skill.checked === false){
-        for(i; i < vm.klass.classskills.length; i++){
-          if(vm.klass.classskills[i].id === trainedSkill.id){
-            vm.klass.classskills.splice(vm.klass.classskills[i])
-          }
-        }
-      }
-      }
-    $scope.removeSkill = function(skill){
+    };
+    $scope.toggleSkills = function(skill) {
       var i = 0;
-      for(i; i < vm.klass.classskills.length; i++){
-          if(vm.klass.classskills[i].id === skill){
-            vm.klass.classskills.splice(vm.klass.classskills[i])
+      var num = 0;
+      var trainedSkill = {
+        id: skill._id,
+        name: skill.name,
+        ability: skill.keyAbility
+      };
+      if (skill.checked === true) {
+        for (i; i < vm.klass.classskills.length; i++) {
+          if (vm.klass.classskills[i].id === trainedSkill.id) {
+            num++;
           }
         }
-    }
+        if (num === 0) {
+          vm.klass.classskills.push(trainedSkill);
+        }
+      } else if (skill.checked === false) {
+        for (i; i < vm.klass.classskills.length; i++) {
+          if (vm.klass.classskills[i].id === trainedSkill.id) {
+            vm.klass.classskills.splice(vm.klass.classskills[i], 1);
+          }
+        }
+      }
+    };
+    $scope.removeSkill = function(skillid) {
+      var i = 0;
+      for (i; i < vm.klass.classskills.length; i++) {
+        if (vm.klass.classskills[i].id === skillid) {
+          vm.klass.classskills.splice(vm.klass.classskills[i], 1);
+        }
+      }
+    };
   }
 
 
 }());
-

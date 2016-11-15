@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Psionics</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="psionic in vm.psionics"
+       ui-sref="psionics.view({ psionicId: psionic._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="psionic.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="psionic.user" ng-bind="psionic.user.displayName"></span>
+        <span ng-if="!psionic.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="psionic.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.psionics.$resolved && !vm.psionics.length">
+    No Psionics yet, why don't you <a ui-sref="psionics.create">create one</a>?
+  </div>
+</section>

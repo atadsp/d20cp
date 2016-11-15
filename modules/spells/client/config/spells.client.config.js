@@ -9,7 +9,7 @@
 
   function menuConfig(Menus) {
     // Set top bar menu items
-    Menus.addMenuItem('topbar', {
+    Menus.addSubMenuItem('topbar', 'magic', {
       title: 'Spells',
       state: 'spells.list',
       roles: ['*']

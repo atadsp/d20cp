@@ -9,7 +9,7 @@
 
   function menuConfig(Menus) {
     // Set top bar menu items
-    Menus.addMenuItem('topbar', {
+    Menus.addSubMenuItem('topbar', 'characterOptions', {
       title: 'Classes',
       state: 'klasses.list',
       roles: ['*']

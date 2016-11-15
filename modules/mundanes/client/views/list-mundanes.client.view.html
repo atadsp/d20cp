@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Mundanes</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="mundane in vm.mundanes"
+       ui-sref="mundanes.view({ mundaneId: mundane._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="mundane.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="mundane.user" ng-bind="mundane.user.displayName"></span>
+        <span ng-if="!mundane.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="mundane.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.mundanes.$resolved && !vm.mundanes.length">
+    No Mundanes yet, why don't you <a ui-sref="mundanes.create">create one</a>?
+  </div>
+</section>

@@ -4,15 +4,7 @@
   </div>
   <div class="list-group">
     <a ng-repeat="language in vm.languages"
-       ui-sref="languages.view({ languageId: language._id })"
        class="list-group-item">
-      <small class="list-group-item-text">
-        Posted on
-        <span ng-bind="language.created | date:'mediumDate'"></span>
-        by
-        <span ng-if="language.user" ng-bind="language.user.displayName"></span>
-        <span ng-if="!language.user">Deleted User</span>
-      </small>
       <h4 class="list-group-item-heading" ng-bind="language.name"></h4>
     </a>
   </div>
@@ -20,3 +12,5 @@
     No Languages yet, why don't you <a ui-sref="languages.create">create one</a>?
   </div>
 </section>
+
+<!-- ui-sref="languages.view({ languageId: language._id }) -->
