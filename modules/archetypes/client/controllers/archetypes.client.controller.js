@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   // Archetypes controller
@@ -6,9 +6,9 @@
     .module('archetypes')
     .controller('ArchetypesController', ArchetypesController);
 
-  ArchetypesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'archetypeResolve'];
+  ArchetypesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'archetypeResolve', 'KlassesService', 'RulebooksService'];
 
-  function ArchetypesController ($scope, $state, $window, Authentication, archetype) {
+  function ArchetypesController($scope, $state, $window, Authentication, archetype, KlassesService, RulebooksService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -17,6 +17,9 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+
+    vm.klasses = KlassesService.query();
+    vm.rulebooks = RulebooksService.query();
 
     // Remove existing Archetype
     function remove() {
@@ -49,5 +52,29 @@
         vm.error = res.data.message;
       }
     }
+    $scope.originalClassInfo = function() {
+      var archetype = vm.archetype;
+      var klass = vm.klasses;
+
+
+      for (var i = 0; i < klass.length; i++) {
+        if (klass[i]._id === archetype.originalClassID) {
+          vm.archetype.originalClass = klass[i].name;
+        }
+      }
+    };
+    $scope.updateRulebookInfo = function() {
+      var book = vm.archetype.book;
+      var rules = vm.rulebooks;
+
+      for (var i = 0; i < rules.length; i++) {
+        if (rules[i].name === book) {
+          vm.archetype.book = book;
+          vm.archetype.gameversion = rules[i].gameversions;
+          vm.archetype.bookid = rules[i]._id;
+          vm.archetype.gameversionID = rules[i].gameversionID;
+        }
+      }
+    };
   }
 }());

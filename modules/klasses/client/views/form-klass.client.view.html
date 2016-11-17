@@ -3,10 +3,9 @@
     <h1>{{vm.klass._id ? 'Edit Class' : 'New Class'}}</h1>
   </div>
   <div class="col-md-12">
-
     <form name="vm.form.klassForm" class="form-horizontal" ng-submit="vm.save(vm.form.klassForm.$valid)" novalidate>
       <fieldset>
-      
+        
         <div class="form-group" show-errors>
           <label class="control-label" for="name">Name</label>
           <input name="name" type="text" ng-model="vm.klass.name" id="name" class="form-control" placeholder="Name" required>
@@ -14,296 +13,254 @@
             <p class="help-block error-text" ng-message="required">Class name is required.</p>
           </div>
         </div>
-
-        <div class="form-group" show-errors>
+        <div class="form-group" style="float: left;">
           <label class="control-label" for="description">Description</label>
-          <textarea name="description" type="text" ng-model="vm.klass.description" id="description" class="form-control" placeholder="Description" > </textarea>
+          <div text-angular="text-angular" name="description" ng-model="vm.klass.description" class="ta-root">
+          </div>
         </div>
-
-        <div class="form-group" show-errors>
+        <div class="form-group" style="clear: both;">
           <label class="control-label" for="description">Class Features</label>
-          <textarea name="classfeatures" type="text" ng-model="vm.klass.classfeatures" id="classfeatures" class="form-control" placeholder="classfeatures" > </textarea>
-        </div>
-
-        <div class="form-group" show-errors>
-          <label class="control-label">Prestige Class?</label> <br>
-          <div ng-init="vm.klass.prestigeclass">
-            <input type="radio" id="true" ng-value="true" ng-model="vm.klass.prestigeclass"> True<br>
-            <input type="radio" ng-value="false" ng-model="vm.klass.prestigeclass"> False<br>
+          <div text-angular="text-angular" name="classFeatures" ng-model="vm.klass.classfeatures" class="ta-root">
           </div>
-        </div>
-
-        <div ng-if="vm.klass.prestigeclass">
-        <label class="control-label" for="babrequirment">Base Attack Bonus Requirement</label>
-          <input name="babrequirment" type="number" ng-model="vm.klass.babrequirment" id="babrequirment" min="0" max="20" class="form-control" placeholder="Base Attack Bonus Requirement">
-
-        <label class="control-label" for="spellcastingrequirment">Spellcasting Requirement</label>
-          <input name="spellcastingrequirment" type="text" ng-model="vm.klass.spellcastingrequirment" id="spellcastingrequirment" class="form-control" placeholder="Spellcasting Requirement">
-
-        <label class="control-label" for="specialrequirment">Special Requirement</label>
-          <input name="specialrequirment" type="text" ng-model="vm.klass.specialrequirment" id="specialrequirment" class="form-control" placeholder="Special Requirement">
-
-        <label>Feat Requirments</label>
-        <div ng-repeat="option in vm.options" ng-if="option._id != vm.feat._id">
-        <input type="checkbox" ng-model="option.checked" ng-click="togglePrereq(option)"> 
-          <span> {{option.name}} </span><br>
-        </div>
-
-        <label ng-if="vm.klass.featrequirment.length > 0">Current Prerequisite Feats </label>
-        <div ng-repeat="current in vm.klass.featrequirment"> 
-        <button ng-click="removePrereq(vm.klass.featrequirment[$index].id)" type="button" ng-model="vm.feat.featprereq">Remove - {{current.name}}</button>
-        </div>
-
-        </div>
-
-        <div class="form-group">
-          <label class="control-label">Hit Dice</label> <br>
-          <div ng-init="vm.klass.hitdice">
-            <input type="radio" name="hitdie" id="d4" value="d4" ng-model="vm.klass.hitdice"> d4<br>
-            <input type="radio" name="hitdie" id="d6" value="d6" ng-model="vm.klass.hitdice"> d6<br>
-            <input type="radio" name="hitdie" id="d8" value="d8" ng-model="vm.klass.hitdice"> d8<br>
-            <input type="radio" name="hitdie" id="d10" value="d10" ng-model="vm.klass.hitdice"> d10<br>
-            <input type="radio" name="hitdie" id="d12" value="d12" ng-model="vm.klass.hitdice"> d12<br>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="control-label">Skill Points</label> <br>
-          <div ng-init="vm.klass.skillpoints">
-            <input type="radio" name="skillpoint" id="2" value="2" ng-model="vm.klass.skillpoints"> 2<br>
-            <input type="radio" name="skillpoint" id="4" value="4" ng-model="vm.klass.skillpoints"> 4<br>
-            <input type="radio" name="skillpoint" id="6" value="6" ng-model="vm.klass.skillpoints"> 6<br>
-            <input type="radio" name="skillpoint" id="8" value="8" ng-model="vm.klass.skillpoints"> 8<br>
-          </div>
-        </div>
-
-        <label>Class Skills</label>
-        <div ng-repeat="skill in vm.skills">
-        <input type="checkbox" ng-model="skill.checked" ng-click="toggleSkills(skill)"> 
-          <span> {{skill.name}} </span><br>
-        </div>
-
-        <label ng-if="vm.klass.classskills.length > 0">Current Class Skills </label>
-        <div ng-repeat="skill in vm.klass.classskills"> 
-        <button ng-click="removeSkill(vm.klass.classskills[$index].id)" type="button" ng-model="vm.feat.featprereq">Remove - {{skill.name}}</button>
-        </div>
-
-        <div class="form-group">
-          <label class="control-label">Base Attack Bonus Progression</label> <br>
-          <div ng-init="vm.klass.babprogression">
-            <input type="radio" name="babprogression" id="0" value="0" ng-model="vm.klass.babprogression"> 0<br>
-            <input type="radio" name="babprogression" id="poor" value="0.5" ng-model="vm.klass.babprogression"> Poor<br>
-            <input type="radio" name="babprogression" id="average" value="0.75" ng-model="vm.klass.babprogression"> Average<br>
-            <input type="radio" name="babprogression" id="Good" value="1" ng-model="vm.klass.babprogression"> Good<br>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="control-label">Fortitude Progression</label> <br>
-          <div ng-init="vm.klass.fortprogression">
-            <input type="radio" name="fortprogression" id="poor" value="0.333334" ng-model="vm.klass.fortprogression"> Poor<br>
-            <input type="radio" name="fortprogression" id="Good" value="0.5" ng-model="vm.klass.fortprogression"> Good<br>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="control-label">Reflex Progression</label> <br>
-          <div ng-init="vm.klass.refprogression">
-            <input type="radio" name="refprogression" id="poor" value="0.333334" ng-model="vm.klass.refprogression"> Poor<br>
-            <input type="radio" name="refprogression" id="Good" value="0.5" ng-model="vm.klass.refprogression"> Good<br>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="control-label">Will Progression</label> <br>
-          <div ng-init="vm.klass.willprogression">
-            <input type="radio" name="willprogression" id="poor" value="0.333334" ng-model="vm.klass.willprogression"> Poor<br>
-            <input type="radio" name="willprogression" id="Good" value="0.5" ng-model="vm.klass.willprogression"> Good<br>
-          </div>
-        </div>
-
-        <div class="form-group">
-
-          <label class="control-label">Is Class a Spell Casting Class?</label> <br>
-          <div ng-init="vm.klass.isspellcaster">
-            <input type="radio" id="true" ng-value="true" ng-model="vm.klass.isspellcaster"> True<br>
-            <input type="radio" ng-value="false" ng-model="vm.klass.isspellcaster"> False<br>
-          </div>
-
-          <div ng-if="vm.klass.isspellcaster == true">
-            <label class="control-label">Advances Existing Casting?</label> <br>
-            <div ng-init="vm.klass.progressesExistingCasting">
-              <input type="radio" id="true" ng-value="true" ng-model="vm.klass.progressesExistingCasting"> True<br>
-              <input type="radio" ng-value="false" ng-model="vm.klass.progressesExistingCasting"> False<br>
+          <div class="form-group">
+            <label class="control-label">Prestige Class?</label> <br>
+            <div ng-init="vm.klass.prestigeclass">
+              <input type="radio" id="true" ng-value="true" ng-model="vm.klass.prestigeclass"> True<br>
+              <input type="radio" ng-value="false" ng-model="vm.klass.prestigeclass"> False<br>
             </div>
-
-            <div ng-if="vm.klass.progressesExistingCasting==false"> 
-              <label class="control-label" for="maxspelllevel">Max Spell Level</label>
-                  <input name="maxspelllevel" type="number" ng-model="vm.klass.maxspelllevel" id="maxspelllevel" min="0" max="9" class="form-control" placeholder="Base Attack Bonus Requirement">
+          </div>
+          <div ng-if="vm.klass.prestigeclass">
+            <label class="control-label" for="babrequirment">Base Attack Bonus Requirement</label>
+            <input name="babrequirment" type="number" ng-model="vm.klass.babrequirment" id="babrequirment" min="0" max="20" class="form-control" placeholder="Base Attack Bonus Requirement">
+            <label class="control-label" for="spellcastingrequirment">Spellcasting Requirement</label>
+            <input name="spellcastingrequirment" type="text" ng-model="vm.klass.spellcastingrequirment" id="spellcastingrequirment" class="form-control" placeholder="Spellcasting Requirement">
+            <label class="control-label" for="specialrequirment">Special Requirement</label>
+            <input name="specialrequirment" type="text" ng-model="vm.klass.specialrequirment" id="specialrequirment" class="form-control" placeholder="Special Requirement">
+            <label>Feat Requirments</label>
+            <div ng-repeat="option in vm.options" ng-if="option._id != vm.feat._id">
+              <input type="checkbox" ng-model="option.checked" ng-click="togglePrereq(option)">
+              <span> {{option.name}} </span><br>
             </div>
-
-            <div ng-if="vm.klass.progressesExistingCasting==false"> 
-              <label class="control-label" for="hasZero">Does the Class have 0 level spells?</label> <br>
+            <label ng-if="vm.klass.featrequirment.length > 0">Current Prerequisite Feats </label>
+            <div ng-repeat="current in vm.klass.featrequirment">
+              <button ng-click="removePrereq(vm.klass.featrequirment[$index].id)" type="button" ng-model="vm.feat.featprereq">Remove - {{current.name}}</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Hit Dice</label> <br>
+            <div ng-init="vm.klass.hitdice">
+              <input type="radio" name="hitdie" id="d4" value="d4" ng-model="vm.klass.hitdice"> d4<br>
+              <input type="radio" name="hitdie" id="d6" value="d6" ng-model="vm.klass.hitdice"> d6<br>
+              <input type="radio" name="hitdie" id="d8" value="d8" ng-model="vm.klass.hitdice"> d8<br>
+              <input type="radio" name="hitdie" id="d10" value="d10" ng-model="vm.klass.hitdice"> d10<br>
+              <input type="radio" name="hitdie" id="d12" value="d12" ng-model="vm.klass.hitdice"> d12<br>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Skill Points</label> <br>
+            <div ng-init="vm.klass.skillpoints">
+              <input type="radio" name="skillpoint" id="2" value="2" ng-model="vm.klass.skillpoints"> 2<br>
+              <input type="radio" name="skillpoint" id="4" value="4" ng-model="vm.klass.skillpoints"> 4<br>
+              <input type="radio" name="skillpoint" id="6" value="6" ng-model="vm.klass.skillpoints"> 6<br>
+              <input type="radio" name="skillpoint" id="8" value="8" ng-model="vm.klass.skillpoints"> 8<br>
+            </div>
+          </div>
+          <label>Class Skills</label>
+          <div ng-repeat="skill in vm.skills">
+            <input type="checkbox" ng-model="skill.checked" ng-click="toggleSkills(skill)">
+            <span> {{skill.name}} </span><br>
+          </div>
+          <label ng-if="vm.klass.classskills.length > 0">Current Class Skills </label>
+          <div ng-repeat="skill in vm.klass.classskills">
+            <button ng-click="removeSkill(vm.klass.classskills[$index].id)" type="button" ng-model="vm.feat.featprereq">Remove - {{skill.name}}</button>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Base Attack Bonus Progression</label> <br>
+            <div ng-init="vm.klass.babprogression">
+              <input type="radio" name="babprogression" id="0" value="0" ng-model="vm.klass.babprogression"> 0<br>
+              <input type="radio" name="babprogression" id="poor" value="0.5" ng-model="vm.klass.babprogression"> Poor<br>
+              <input type="radio" name="babprogression" id="average" value="0.75" ng-model="vm.klass.babprogression"> Average<br>
+              <input type="radio" name="babprogression" id="Good" value="1" ng-model="vm.klass.babprogression"> Good<br>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Fortitude Progression</label> <br>
+            <div ng-init="vm.klass.fortprogression">
+              <input type="radio" name="fortprogression" id="poor" value="0.333334" ng-model="vm.klass.fortprogression"> Poor<br>
+              <input type="radio" name="fortprogression" id="Good" value="0.5" ng-model="vm.klass.fortprogression"> Good<br>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Reflex Progression</label> <br>
+            <div ng-init="vm.klass.refprogression">
+              <input type="radio" name="refprogression" id="poor" value="0.333334" ng-model="vm.klass.refprogression"> Poor<br>
+              <input type="radio" name="refprogression" id="Good" value="0.5" ng-model="vm.klass.refprogression"> Good<br>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Will Progression</label> <br>
+            <div ng-init="vm.klass.willprogression">
+              <input type="radio" name="willprogression" id="poor" value="0.333334" ng-model="vm.klass.willprogression"> Poor<br>
+              <input type="radio" name="willprogression" id="Good" value="0.5" ng-model="vm.klass.willprogression"> Good<br>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Is Class a Spell Casting Class?</label> <br>
+            <div ng-init="vm.klass.isspellcaster">
+              <input type="radio" id="true" ng-value="true" ng-model="vm.klass.isspellcaster"> True<br>
+              <input type="radio" ng-value="false" ng-model="vm.klass.isspellcaster"> False<br>
+            </div>
+            <div ng-if="vm.klass.isspellcaster == true">
+              <label class="control-label">Advances Existing Casting?</label> <br>
+              <div ng-init="vm.klass.progressesExistingCasting">
+                <input type="radio" id="true" ng-value="true" ng-model="vm.klass.progressesExistingCasting"> True<br>
+                <input type="radio" ng-value="false" ng-model="vm.klass.progressesExistingCasting"> False<br>
+              </div>
+              <div ng-if="vm.klass.progressesExistingCasting==false">
+                <label class="control-label" for="maxspelllevel">Max Spell Level</label>
+                <input name="maxspelllevel" type="number" ng-model="vm.klass.maxspelllevel" id="maxspelllevel" min="0" max="9" class="form-control" placeholder="Base Attack Bonus Requirement">
+              </div>
+              <div ng-if="vm.klass.progressesExistingCasting==false">
+                <label class="control-label" for="hasZero">Does the Class have 0 level spells?</label> <br>
                 <input type="radio" id="true" ng-value="true" ng-model="vm.klass.hasZero"> True<br>
                 <input type="radio" ng-value="false" ng-model="vm.klass.hasZero"> False<br>
+              </div>
             </div>
           </div>
-
-        </div>
-
-        <label class="control-label" for="numlevels">Max Levels</label>
+          <label class="control-label" for="numlevels">Max Levels</label>
           <input name="numlevels" type="number" ng-model="vm.klass.numlevels" id="numlevels" min="1" max="20" class="form-control" placeholder="Base Attack Bonus Requirement">
-
-        <div class="form-group">
-        <h3> Class Table </h3>
-        
-        <table class="table">
-          <tr>
-            <th>Level
-            </th>
-            <th>Base Attack Bonus
-            </th>
-            <th>Fort Save
-            </th>
-            <th>Ref Save
-            </th>
-            <th>Will Save
-            </th>
-            <th>Special
-            </th>
-            <th ng-if="vm.klass.isspellcaster">Spell Advancement
-            <div ng-if="vm.klass.progressesExistingCasting==false">
-              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.hasZero==true"> 0th </span> 
-              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >= 1">1st</span> 
-              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >= 2">2nd</span> 
-              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >= 3">3rd</span> 
-              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >=4">4th</span> 
-              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >=5">5th</span> 
-              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >=6">6th</span> 
-              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >=7">7th</span> 
-              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >=8">8th</span> 
-              <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >=9">9th</span> 
-            </div>
-            </th>        
-            <div>
-          </tr>
-
-          <tr ng-repeat="i in level(vm.klass.numlevels) track by $index"> 
-            <td> {{$index + 1}} 
-            </td>
-
-            <td> 
-            <span ng-if="vm.klass.babprogression == 0.5">+{{vm.klass.babprogression * ($index + 1) - 0.5| number : 0 }} 
-            </span>
-            <span ng-if="vm.klass.babprogression == 0.75">+{{vm.klass.babprogression * ($index + 1) -0.5 | number : 0 }}
-            </span>
-            <span ng-if="vm.klass.babprogression == 1">+{{vm.klass.babprogression * ($index + 1) | number : 0 }}
-            </span>
-            <span ng-if="vm.klass.babprogression == 0">0
-            </span>
-            </td>
-
-            <td>
-            <div ng-if="vm.klass.fortprogression == 0.333334">{{vm.klass.fortprogression * ($index + 1) - 0.2 | number : 0 }}
-            </div>
-            <div ng-if="vm.klass.fortprogression == 0.5"> 
-            {{vm.klass.fortprogression * ($index + 1) + 1.5 | number : 0 }}
-            </div>
-            </td>
-
-            <td>
-            <div ng-if="vm.klass.refprogression == 0.333334">{{vm.klass.refprogression * ($index + 1) - 0.2 | number : 0 }}
-            </div>
-            <div ng-if="vm.klass.refprogression == 0.5"> 
-            {{vm.klass.refprogression * ($index + 1) + 1.5 | number : 0 }}
-            </div>
-            </td>
+          <div class="form-group">
+            <h3> Class Table </h3>
             
-            <td>
-            <div ng-if="vm.klass.willprogression == 0.333334">{{vm.klass.willprogression * ($index + 1) - 0.2 | number : 0 }}
-            </div>
-            <div ng-if="vm.klass.willprogression == 0.5"> 
-            {{vm.klass.willprogression * ($index + 1) + 1.5 | number : 0 }}
-            </td>
-
-            <td> 
-              <input type="text" ng-model="vm.klass.advancement[$index].special" id="special{{$index}}" class="form-control" placeholder="Special Abilties"> 
-            </td>
-
-
-            <td ng-if="vm.klass.isspellcaster==true">
-            <div ng-if="vm.klass.progressesExistingCasting==false"> 
-            <span ng-if="vm.klass.hasZero==true" style="float:left; width:35px; margin-right: 10px;"> 
-              <input name="zero{{$index}}" type="text" ng-model="vm.klass.advancement[$index].zerolevel" id="zero{{$index}}" class="form-control" ng-init="0" placeholder="Special Abilties">
-            </span>
-            <span ng-if="vm.klass.maxspelllevel >= 1" style="float:left; width:35px; margin-right: 10px;"> 
-              <input name="first{{$index}}" type="text" ng-model="vm.klass.advancement[$index].firstlevel" id="first{{$index}}" ng-init="0" class="form-control" placeholder="Special Abilties">
-            </span>
-            <span ng-if="vm.klass.maxspelllevel >= 2" style="float:left; width:35px; margin-right: 10px;"> 
-              <input name="second{{$index}}" type="text" ng-model="vm.klass.advancement[$index].secondlevel" id="second{{$index}}" ng-init="0" class="form-control" placeholder="Special Abilties">
-            </span>
-            <span ng-if="vm.klass.maxspelllevel >= 3" style="float:left; width:35px; margin-right: 10px;"> 
-              <input name="third{{$index}}" type="text" ng-model="vm.klass.advancement[$index].thirdlevel" id="third{{$index}}" ng-init="0" class="form-control" placeholder="Special Abilties">
-            </span>
-            <span ng-if="vm.klass.maxspelllevel >= 4" style="float:left; width:35px; margin-right: 10px;"> 
-              <input name="fourth{{$index}}" type="text" ng-model="vm.klass.advancement[$index].fourthlevel" id="fourth{{$index}}" ng-init="0" class="form-control" placeholder="Special Abilties">
-            </span>
-            <span ng-if="vm.klass.maxspelllevel >= 5" style="float:left; width:35px; margin-right: 10px;"> 
-              <input name="fifth{{$index}}" type="text" ng-model="vm.klass.advancement[$index].fifthlevel" id="fifth{{$index}}" ng-init="0" class="form-control" placeholder="Special Abilties">
-            </span>
-            <span ng-if="vm.klass.maxspelllevel >= 6" style="float:left; width:35px; margin-right: 10px;"> 
-              <input name="sixth{{$index}}" type="text" ng-model="vm.klass.advancement[$index].sixthlevel" id="sixth{{$index}}" ng-init="0" class="form-control" placeholder="Special Abilties">
-            </span>
-            <span ng-if="vm.klass.maxspelllevel >= 7" style="float:left; width:35px; margin-right: 10px;"> 
-              <input name="seventh{{$index}}" type="text" ng-model="vm.klass.advancement[$index].seventhlevel" id="seventh{{$index}}" ng-init="0" class="form-control" placeholder="Special Abilties">
-            </span>
-            <span ng-if="vm.klass.maxspelllevel >= 8" style="float:left; width:35px; margin-right: 10px;"> 
-              <input name="eigth{{$index}}" type="text" ng-model="vm.klass.advancement[$index].eigthlevel" id="eigth{{$index}}" ng-init="0" class="form-control" placeholder="Special Abilties">
-            </span>
-            <span ng-if="vm.klass.maxspelllevel >= 9" style="float:left; width:35px; margin-right: 10px;"> 
-              <input name="ninth{{$index}}" type="text" ng-model="vm.klass.advancement[$index].ninthlevel" id="ninth{{$index}}" ng-init="0" class="form-control" placeholder="Special Abilties">
-            </span>
-            </div>
-
-            <span ng-if="vm.klass.progressesExistingCasting==true"> 
-              <input name="progresses" type="text" ng-model="vm.klass.advancement[$index].progressesExisting" id="progresses{{$index}}" ng-init="0" class="form-control" placeholder="Spell Advancement">
-            </span>
-            </td>
-          </tr>
-
-        </table>
-
-
-
-
-        <div class="form-group" show-errors>
-          <label class="control-label">Rule Book</label>
-          <p ng-show="vm.klass._id"> Current Book - {{vm.klass.book}} </p>
-          <select name="book" ng-options="book.name as book.name for book in vm.rulebooks" ng-model="vm.klass.book" id="book" class="form-control" ng-change="updateRulebookInfo()" >
-            <option value="">--select an option--</option>
-          </select>
-        </div>
-        <div class="form-group" show-errors>
-          <input name="bookid" type="hidden" disabled="true" ng ng-model="vm.klass.bookid" id="bookid" class="form-control" placeholder="bookid"> </select>
-        </div>
-
-        <div class="form-group" show-errors>
-          <input name="gameversion" type="hidden" disabled="true" ng ng-model="vm.klass.gameversion" id="gameversion" class="form-control" placeholder="Version"> </select>
-        </div>
-
-        <div class="form-group" show-errors>
-          <input name="gameversionID" type="hidden" disabled="true" ng ng-model="vm.klass.gameversionID" id="gameversionID" class="form-control" placeholder="Version"> </select>
-        </div>
-
-
-        <div class="form-group">
-          <button type="submit" class="btn btn-default">{{vm.klass._id ? 'Update' : 'Create'}}</button>
-        </div>
-        <div ng-show="vm.error" class="text-danger">
-          <strong ng-bind="vm.error"></strong>
-        </div>
-
-      </fieldset>
-    </form>
-  </div>
-</section>
+            <table class="table">
+              <tr>
+                <th>Level
+                </th>
+                <th>Base Attack Bonus
+                </th>
+                <th>Fort Save
+                </th>
+                <th>Ref Save
+                </th>
+                <th>Will Save
+                </th>
+                <th>Special
+                </th>
+                <th ng-if="vm.klass.isspellcaster">Spell Advancement
+                  <div ng-if="vm.klass.progressesExistingCasting==false">
+                    <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.hasZero==true"> 0th </span>
+                    <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >= 1">1st</span>
+                    <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >= 2">2nd</span>
+                    <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >= 3">3rd</span>
+                    <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >=4">4th</span>
+                    <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >=5">5th</span>
+                    <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >=6">6th</span>
+                    <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >=7">7th</span>
+                    <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >=8">8th</span>
+                    <span style="float:left; width:35px; margin-right: 10px;" ng-if="vm.klass.maxspelllevel >=9">9th</span>
+                  </div>
+                </th>
+                <div>
+                </tr>
+                <tr ng-repeat="i in level(vm.klass.numlevels) track by $index">
+                  <td> {{$index + 1}}
+                  </td>
+                  <td>
+                    <span ng-if="vm.klass.babprogression == 0.5">+{{vm.klass.babprogression * ($index + 1) - 0.5| number : 0 }}
+                    </span>
+                    <span ng-if="vm.klass.babprogression == 0.75">+{{vm.klass.babprogression * ($index + 1) -0.5 | number : 0 }}
+                    </span>
+                    <span ng-if="vm.klass.babprogression == 1">+{{vm.klass.babprogression * ($index + 1) | number : 0 }}
+                    </span>
+                    <span ng-if="vm.klass.babprogression == 0">0
+                    </span>
+                  </td>
+                  <td>
+                    <div ng-if="vm.klass.fortprogression == 0.333334">{{vm.klass.fortprogression * ($index + 1) - 0.2 | number : 0 }}
+                    </div>
+                    <div ng-if="vm.klass.fortprogression == 0.5">
+                      {{vm.klass.fortprogression * ($index + 1) + 1.5 | number : 0 }}
+                    </div>
+                  </td>
+                  <td>
+                    <div ng-if="vm.klass.refprogression == 0.333334">{{vm.klass.refprogression * ($index + 1) - 0.2 | number : 0 }}
+                    </div>
+                    <div ng-if="vm.klass.refprogression == 0.5">
+                      {{vm.klass.refprogression * ($index + 1) + 1.5 | number : 0 }}
+                    </div>
+                  </td>
+                  
+                  <td>
+                    <div ng-if="vm.klass.willprogression == 0.333334">{{vm.klass.willprogression * ($index + 1) - 0.2 | number : 0 }}
+                    </div>
+                    <div ng-if="vm.klass.willprogression == 0.5">
+                      {{vm.klass.willprogression * ($index + 1) + 1.5 | number : 0 }}
+                    </td>
+                    <td>
+                      <input type="text" ng-model="vm.klass.advancement[$index].special" id="special{{$index}}" class="form-control" placeholder="Special Abilties">
+                    </td>
+                    <td ng-if="vm.klass.isspellcaster==true">
+                      <div ng-if="vm.klass.progressesExistingCasting==false">
+                        <span ng-if="vm.klass.hasZero==true" style="float:left; width:35px; margin-right: 10px;">
+                          <input name="zero{{$index}}" type="text" ng-model="vm.klass.advancement[$index].zerolevel" id="zero{{$index}}" class="form-control" ng-init="0" placeholder="Special Abilties">
+                        </span>
+                        <span ng-if="vm.klass.maxspelllevel >= 1" style="float:left; width:35px; margin-right: 10px;">
+                          <input name="first{{$index}}" type="text" ng-model="vm.klass.advancement[$index].firstlevel" id="first{{$index}}" ng-init="0" class="form-control" placeholder="Special Abilties">
+                        </span>
+                        <span ng-if="vm.klass.maxspelllevel >= 2" style="float:left; width:35px; margin-right: 10px;">
+                          <input name="second{{$index}}" type="text" ng-model="vm.klass.advancement[$index].secondlevel" id="second{{$index}}" ng-init="0" class="form-control" placeholder="Special Abilties">
+                        </span>
+                        <span ng-if="vm.klass.maxspelllevel >= 3" style="float:left; width:35px; margin-right: 10px;">
+                          <input name="third{{$index}}" type="text" ng-model="vm.klass.advancement[$index].thirdlevel" id="third{{$index}}" ng-init="0" class="form-control" placeholder="Special Abilties">
+                        </span>
+                        <span ng-if="vm.klass.maxspelllevel >= 4" style="float:left; width:35px; margin-right: 10px;">
+                          <input name="fourth{{$index}}" type="text" ng-model="vm.klass.advancement[$index].fourthlevel" id="fourth{{$index}}" ng-init="0" class="form-control" placeholder="Special Abilties">
+                        </span>
+                        <span ng-if="vm.klass.maxspelllevel >= 5" style="float:left; width:35px; margin-right: 10px;">
+                          <input name="fifth{{$index}}" type="text" ng-model="vm.klass.advancement[$index].fifthlevel" id="fifth{{$index}}" ng-init="0" class="form-control" placeholder="Special Abilties">
+                        </span>
+                        <span ng-if="vm.klass.maxspelllevel >= 6" style="float:left; width:35px; margin-right: 10px;">
+                          <input name="sixth{{$index}}" type="text" ng-model="vm.klass.advancement[$index].sixthlevel" id="sixth{{$index}}" ng-init="0" class="form-control" placeholder="Special Abilties">
+                        </span>
+                        <span ng-if="vm.klass.maxspelllevel >= 7" style="float:left; width:35px; margin-right: 10px;">
+                          <input name="seventh{{$index}}" type="text" ng-model="vm.klass.advancement[$index].seventhlevel" id="seventh{{$index}}" ng-init="0" class="form-control" placeholder="Special Abilties">
+                        </span>
+                        <span ng-if="vm.klass.maxspelllevel >= 8" style="float:left; width:35px; margin-right: 10px;">
+                          <input name="eigth{{$index}}" type="text" ng-model="vm.klass.advancement[$index].eigthlevel" id="eigth{{$index}}" ng-init="0" class="form-control" placeholder="Special Abilties">
+                        </span>
+                        <span ng-if="vm.klass.maxspelllevel >= 9" style="float:left; width:35px; margin-right: 10px;">
+                          <input name="ninth{{$index}}" type="text" ng-model="vm.klass.advancement[$index].ninthlevel" id="ninth{{$index}}" ng-init="0" class="form-control" placeholder="Special Abilties">
+                        </span>
+                      </div>
+                      <span ng-if="vm.klass.progressesExistingCasting==true">
+                        <input name="progresses" type="text" ng-model="vm.klass.advancement[$index].progressesExisting" id="progresses{{$index}}" ng-init="0" class="form-control" placeholder="Spell Advancement">
+                      </span>
+                    </td>
+                  </tr>
+                </table>
+                <div class="form-group" show-errors>
+                  <label class="control-label">Rule Book</label>
+                  <p ng-show="vm.klass._id"> Current Book - {{vm.klass.book}} </p>
+                  <select name="book" ng-options="book.name as book.name for book in vm.rulebooks" ng-model="vm.klass.book" id="book" class="form-control" ng-change="updateRulebookInfo()" >
+                    <option value="">--select an option--</option>
+                  </select>
+                </div>
+                <div class="form-group" show-errors>
+                  <input name="bookid" type="hidden" disabled="true" ng ng-model="vm.klass.bookid" id="bookid" class="form-control" placeholder="bookid"> </select>
+                </div>
+                <div class="form-group" show-errors>
+                  <input name="gameversion" type="hidden" disabled="true" ng ng-model="vm.klass.gameversion" id="gameversion" class="form-control" placeholder="Version"> </select>
+                </div>
+                <div class="form-group" show-errors>
+                  <input name="gameversionID" type="hidden" disabled="true" ng ng-model="vm.klass.gameversionID" id="gameversionID" class="form-control" placeholder="Version"> </select>
+                </div>
+                <div class="form-group">
+                  <button type="submit" class="btn btn-default">{{vm.klass._id ? 'Update' : 'Create'}}</button>
+                </div>
+                <div ng-show="vm.error" class="text-danger">
+                  <strong ng-bind="vm.error"></strong>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        </section>

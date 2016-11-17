@@ -13,7 +13,7 @@
         <span ng-if="skill.user" ng-bind="skill.user.displayName"></span>
         <span ng-if="!skill.user">Deleted User</span>
       </small>
-      <h4 class="list-group-item-heading" ng-bind="skill.name"></h4>
+      <h4> <span class="list-group-item-heading" ng-bind="skill.name"> </span>(<span ng-bind="skill.keyAbility"></span>) - <span ng-bind="skill.gameversion"> </span></h4>
     </a>
   </div>
   <div class="alert alert-warning text-center" ng-if="vm.skills.$resolved && !vm.skills.length">

@@ -7,18 +7,56 @@
       <fieldset>
         <div class="form-group" show-errors>
           <label class="control-label" for="name">Name</label>
-          <input name="name" type="text" ng-model="vm.archetype.name" id="name" class="form-control" placeholder="Name" required>
+<input name="name" type="text" ng-model="vm.archetype.name" id="name" class="form-control" placeholder="Name" required>
           <div ng-messages="vm.form.archetypeForm.name.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Archetype name is required.</p>
           </div>
         </div>
+        <div class="form-group" show-errors>
+          <label class="control-label">Original Class</label>
+          <select name="oClass" ng-options="oClass._id as oClass.name + ' - ' + oClass.gameversion for oClass in vm.klasses | filter:vm.archetype.gameversionID" ng-model="vm.archetype.originalClassID" id="oClass" class="form-control" ng-change="originalClassInfo()" >
+            <option value="" >--select an option--</option>
+          </select>
+          <div ng-messages="vm.form.archetypeForm.originalClass.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Archetype Class is required.</p>
+          </div>
+        </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-default">{{vm.archetype._id ? 'Update' : 'Create'}}</button>
+          <label class="control-label">Hit Dice</label> <br>
+          <div ng-init="vm.archetype.altType">
+            <input type="radio" name="altType" id="archetype" value="Archetype" ng-model="vm.archetype.altType"> Archetype<br>
+            <input type="radio" name="altType" id="ACF" ng-value="'Alternante Class Feature'" ng-model="vm.archetype.altType">Alternante Class Feature<br>
+            <input type="radio" name="altType" id="Variant" ng-value="'Variant Class'" ng-model="vm.archetype.altType">Variant Class<br>
+            <input type="radio" name="altType" id=" Substitution" ng-value="'Substitution Levels'" ng-model="vm.archetype.altType">Substitution Levels<br>
+          </div>
         </div>
-        <div ng-show="vm.error" class="text-danger">
-          <strong ng-bind="vm.error"></strong>
-        </div>
-      </fieldset>
-    </form>
-  </div>
-</section>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="description">Description</label>
+          <div text-angular="text-angular" name="description" ng-model="vm.archetype.description" class="ta-root">
+          </div>
+          <div ng-messages="vm.form.archetypeForm.description.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Archetype description is required.</p>
+          </div>
+          <div class="form-group" show-errors>
+            <label class="control-label">Rule Book</label>
+            <p ng-show="vm.archetype._id"> Current Book - {{vm.archetype.book}} </p>
+            <select name="book" ng-options="book.name as book.name for book in vm.rulebooks" ng-model="vm.archetype.book" id="book" class="form-control" ng-change="updateRulebookInfo()" >
+              <option value="">--select an option--</option>
+            </select>
+            <div ng-messages="vm.form.archetypeForm.originalClass.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Archetype Class is required.</p>
+            </div>
+            <input name="bookid" type="hidden" disabled="true" ng-model="vm.archetype.bookid" id="bookid" class="form-control" placeholder="bookid">
+            <input name="gameversion" type="hidden" disabled="true" ng-model="vm.archetype.gameversion" id="gameversion" class="form-control" placeholder="Version">
+            <input name="gameversionID" type="hidden" disabled="true" ng-model="vm.archetype.gameversionID" id="gameversionID" class="form-control" placeholder="Version">
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-default">{{vm.archetype._id ? 'Update' : 'Create'}}</button>
+          </div>
+          <div ng-show="vm.error" class="text-danger">
+            <strong ng-bind="vm.error"></strong>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </section>

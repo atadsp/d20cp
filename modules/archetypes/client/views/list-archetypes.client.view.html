@@ -13,7 +13,7 @@
         <span ng-if="archetype.user" ng-bind="archetype.user.displayName"></span>
         <span ng-if="!archetype.user">Deleted User</span>
       </small>
-      <h4 class="list-group-item-heading" ng-bind="archetype.name"></h4>
+      <h4><span ng-bind="archetype.name"></span> - <span ng-bind="archetype.originalClass"></span> - <span ng-bind="archetype.altType"></span></h4>
     </a>
   </div>
   <div class="alert alert-warning text-center" ng-if="vm.archetypes.$resolved && !vm.archetypes.length">

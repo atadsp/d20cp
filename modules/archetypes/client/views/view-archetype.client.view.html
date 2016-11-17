@@ -1,6 +1,11 @@
 <section>
   <div class="page-header">
     <h1 ng-bind="vm.archetype.name"></h1>
+    <a href="./classes/{{vm.archetype.originalClassID}}"><h4><span ng-bind="vm.archetype.originalClass"> </span> - <span ng-bind="vm.archetype.altType"> </span> </h4></a>
+    <b> Book: </b><a href="./rulebooks/{{vm.archetype.bookid}}"><span ng-bind="vm.archetype.book"> </span></a>
+    <div ng-bind-html="vm.archetype.description"> </div>
+    <hr>
+    <a href="./gameversions/{{vm.archetype.gameversionID}}"><h6 ng-bind="vm.archetype.gameversion"> </h6>
   </div>
   <div class="pull-right"
        ng-show="vm.archetype.isCurrentUserOwner">

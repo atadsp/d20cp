@@ -3,7 +3,7 @@
     <h1 ng-bind="vm.rulebook.name"></h1>
     <i><p ng-bind="vm.rulebook.tagline"></p></i>
     <p><b>by: <i ng-bind="vm.rulebook.authors"></i></b></p>
-    <p ng-bind="vm.rulebook.description"></p>
+    <p ng-bind-html="vm.rulebook.description"></p>
     <a href="./gameversions/{{vm.rulebook.gameversionID}}"><p ng-bind="vm.rulebook.gameversions"> </p>
   </div>
   <div class="pull-right"

@@ -45,12 +45,14 @@
 
         <div class="form-group" show-errors>
           <label class="control-label" for="benefit">Benefit</label>
-          <textarea name="benefit" type="text" ng-model="vm.feat.benefit" id="benefit" class="form-control" placeholder="Prerequisites" > </textarea>
+          <div text-angular="text-angular" name="benefit" ng-model="vm.archetype.benefit" class="ta-root">
+          </div>
         </div>
 
         <div class="form-group" show-errors>
           <label class="control-label" for="special">Special</label>
-          <textarea name="special" type="text" ng-model="vm.feat.special" id="special" class="form-control" placeholder="Prerequisites" > </textarea>
+          <div text-angular="text-angular" name="special" ng-model="vm.archetype.special" class="ta-root">
+          </div>
         </div>
 
         <div class="form-group" show-errors>

@@ -3,14 +3,14 @@
     <h1 ng-bind="vm.feat.name"></h1>
     <p><b> Book: </b><a href="./rulebooks/{{vm.feat.bookid}}"><span ng-bind="vm.feat.book"> </span> </a> </p>
     <h4><span ng-bind="vm.feat.category"></span><span ng-if="vm.feat.isFighterBonusFeat === true">, Fighter Bonus Feat</span></h4>
-    <h3> Benifit </h3>
-    <p ng-bind="vm.feat.benefit"> </p>
-    <h3> Special </h3>
     <p ng-bind="vm.feat.special"> </p>
     <h4> Prerequisite </h4>
     <p> <span ng-bind="vm.feat.prerequisite"></span><span ng-repeat="prefeat in vm.feat.featprereq">, <a href="./feats/{{prefeat.id}}">{{prefeat.name}} </a>
       </span>
     </p>
+    <h3> Benifit </h3>
+    <p ng-bind="vm.feat.benefit"> </p>
+    <h3> Special </h3>
     <a href="/gameversions/{{vm.feat.gameversionID}}"><i ng-bind="vm.feat.gameversion"> </i>
   </div>
   <div class="pull-right"
